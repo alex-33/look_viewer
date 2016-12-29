@@ -9,4 +9,7 @@ pip install -r requirements.txt
 python setup.py install
 
 # create web service
-look_viewer
+FLASK_APP=look_viewer/look_viewer.py python -m flask run --host=0.0.0.0
+
+# TODO:
+look_viewer --host=0.0.0.0
