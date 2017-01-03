@@ -31,32 +31,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <div class="row">
+    {% for image in image_collection %}
       <div class="col-xs-6 col-md-3">
 	<a href="#" class="thumbnail">
-	  <img src="http://pngimg.com/upload/small/men_shoes_PNG7497.png">
+            <img src="/static/img/{{ image }}">
 	</a>
       </div>
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-	  <img src="http://pngimg.com/upload/small/men_shoes_PNG7496.png">
-	</a>
-      </div>
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-	  <img src="http://pngimg.com/upload/small/men_shoes_PNG7495.png">
-	</a>
-      </div>
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-	  <img src="http://pngimg.com/upload/small/men_shoes_PNG7494.png">
-	</a>
-      </div>
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-	  <img src="http://pngimg.com/upload/small/men_shoes_PNG7493.png">
-	</a>
-      </div>
+    {% endfor %}
     </div>
+
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!--
