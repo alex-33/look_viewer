@@ -39,11 +39,10 @@ class ImageStorage(object):
     def get_random_image_paths(self, type_name, limit=None, prefix=None):
         image_names = self.get_random_image_names(type_name, limit=limit)
 
-        type_folder = self._get_folder_for_type(type_name)
         prefix = prefix or os.path.join(self.site_name, type_name)
         image_paths = list(
             os.path.join(prefix, image_name)
-            for image_name in iterate_files(type_folder)
+            for image_name in image_names
         )
         return image_paths
 
