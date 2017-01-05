@@ -29,10 +29,7 @@ class ImageStorage(object):
 
     def get_random_image_names(self, type_name, limit=None):
         type_folder = self._get_folder_for_type(type_name)
-        image_names = list(
-            os.path.join(type_folder, image_name)
-            for image_name in iterate_files(type_folder)
-        )
+        image_names = list(iterate_files(type_folder))
         shuffle(image_names)
         return image_names[:limit]
 

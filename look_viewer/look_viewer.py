@@ -6,6 +6,7 @@ __version__ = "0.1"
 IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), "static/img")
 IMAGE_PER_TYPE = 25
 app = Flask(__name__, static_url_path="/static")
+# TODO: configure application logger to a file
 
 
 @app.route("/")
