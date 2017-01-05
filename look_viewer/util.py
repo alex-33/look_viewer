@@ -21,6 +21,8 @@ class ImageStorage(object):
         self.location = location
 
     def get_types(self):
+        print "=== DEBUG location: === {}".format(self.location)
+
         types = list(iterate_subfolders(self.location))
         return types
 
