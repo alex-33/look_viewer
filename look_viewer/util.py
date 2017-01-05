@@ -1,0 +1,54 @@
+import os, os.path
+from random import shuffle
+
+def iterate_subfolders(folder):
+    for item in os.listdir(folder):
+        full_path = os.path.join(folder, item)
+        if os.path.isdir(full_path):
+            yield item
+
+
+def iterate_files(image_folder):
+    for file_name in os.listdir(image_folder):
+        full_path = os.path.join(image_folder, file_name)
+        if os.path.isfile(full_path):
+            yield file_name
+
+
+class ImageStorage(object):
+    def __init__(self, site_name, location=None):
+        self.site_name = site_name
+        self.location = location
+
+    def get_types(self):
+        types = list(iterate_subfolders(self.location))
+        return types
+
+
+    def get_random_image_names(self, type_name, limit=None):
+        type_folder = self._get_folder_for_type(type_name)
+        image_names = list(
+            os.path.join(type_folder, image_name)
+            for image_name in iterate_files(type_folder)
+        )
+        shuffle(image_names)
+        return image_names[:limit]
+
+    def get_random_image_paths(self, type_name, limit=None, prefix=None):
+        image_names = self.get_random_image_names(type_name, limit=limit)
+
+        type_folder = self._get_folder_for_type(type_name)
+        prefix = prefix or os.path.join(self.site_name, type_name)
+        image_paths = list(
+            os.path.join(prefix, image_name)
+            for image_name in iterate_files(type_folder)
+        )
+        return image_paths
+
+    @classmethod
+    def build_for(cls, site_name, static_image_path):
+        location = os.path.join(static_image_path, site_name)
+        return cls(site_name, location)
+
+    def _get_folder_for_type(self, type_name):
+        return os.path.join(self.location, type_name)
