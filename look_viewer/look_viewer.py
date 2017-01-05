@@ -27,6 +27,7 @@ def show_image_types_for_site(site):
     image_types = site_storage.get_types()
     return render_template("site.html", image_types=image_types)
 
+
 @app.route("/<site>/<top>/<bottom>", methods=["GET", "POST"])
 def look_generator(site, top, bottom):
     if request.method == "POST":
@@ -39,7 +40,11 @@ def look_generator(site, top, bottom):
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     top_images = site_storage.get_random_image_paths(top, limit=IMAGE_PER_TYPE)
     bottom_images = site_storage.get_random_image_paths(bottom, limit=IMAGE_PER_TYPE)
-    return render_template("look.html", top_images=top_images, bottom_images=bottom_images)
+    return render_template(
+        "look.html",
+        top_name=top, bottom_name=bottom,
+        top_images=top_images, bottom_images=bottom_images
+    )
 
 
 @app.route("/look")

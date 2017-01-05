@@ -42,7 +42,7 @@
         <button type="submit" class="btn btn-primary" action="save_look">save</button>
     </form>
 
-    <h1>TOP</h1>
+    <h1>TOP: {{ top_name }}</h1>
 
     <div class="row">
     {% for image in top_images %}
@@ -54,7 +54,7 @@
     {% endfor %}
     </div>
 
-    <h1>BOTTOM</h1>
+    <h1>BOTTOM: {{ bottom_name }}</h1>
 
     <div class="row">
     {% for image in bottom_images %}
