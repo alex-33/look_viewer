@@ -4,13 +4,14 @@ from util import ImageStorage, iterate_files
 
 __version__ = "0.1"
 IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), "static/img")
+IMAGE_PER_TYPE = 25
 app = Flask(__name__, static_url_path="/static")
 
 
 @app.route("/")
 def main():
     lamoda_storage = ImageStorage.build_for(site_name="lamoda", static_image_path=IMAGE_FOLDER)
-    shoe_images = lamoda_storage.get_random_image_paths("shoes")
+    shoe_images = lamoda_storage.get_random_image_paths("shoes", limit=IMAGE_PER_TYPE)
     return render_template("index.html", image_collection=shoe_images)
 
 
@@ -35,8 +36,8 @@ def look_generator(site, top, bottom):
         # TODO: add a hover message (your look was saved)
         
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
-    top_images = site_storage.get_random_image_paths(top)
-    bottom_images = site_storage.get_random_image_paths(bottom)
+    top_images = site_storage.get_random_image_paths(top, limit=IMAGE_PER_TYPE)
+    bottom_images = site_storage.get_random_image_paths(bottom, limit=IMAGE_PER_TYPE)
     return render_template("look.html", top_images=top_images, bottom_images=bottom_images)
 
 
