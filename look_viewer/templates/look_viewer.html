@@ -34,19 +34,25 @@
     <h1>Look Viewer</h1>
 
     {% for look in look_collection %}
-    <h2> Look # {{ loop.index }}</h2>
-    <div class="row">
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-            <img src="/static/img/{{ look[0] }}">
-	</a>
+      <div class="col-xs-3 col-md-3">
+
+        <h2> Look # {{ loop.index }}</h2>
+        <div class="row">
+
+          <div class="col-xs-12 col-md-12">
+            <a href="#" class="thumbnail">
+                <img src="{{ look[0] }}">
+            </a>
+          </div>
+
+          <div class="col-xs-12 col-md-12">
+            <a href="#" class="thumbnail">
+                <img src="{{ look[1] }}">
+            </a>
+          </div>
+        </div>
+
       </div>
-      <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
-            <img src="/static/img/{{ look[1] }}">
-	</a>
-      </div>
-    </div>
     {% endfor %}
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->

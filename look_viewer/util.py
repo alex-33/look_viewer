@@ -55,6 +55,7 @@ class ImageStorage(object):
 
 
 def configure_flask_logger(flask_logger):
+    # TODO: use jsonlines for better parsing
     formatter = logging.Formatter(fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     file_handler = logging.FileHandler("look_viewer.log")
@@ -63,3 +64,16 @@ def configure_flask_logger(flask_logger):
 
     flask_logger.addHandler(file_handler)
     flask_logger.setLevel(logging.INFO)
+
+
+def parse_look_collection_from_log(log_file_path):
+    with open(log_file_path) as fin:
+        for line in fin:
+            if "user provided look" in line:
+                look = line.split("user provided look:")[-1]
+                look_items = look.split(" + ")
+                if len(look_items) == 2:
+                    top, bottom = look_items
+                    top = top.strip()
+                    bottom = bottom.strip()
+                    yield top, bottom

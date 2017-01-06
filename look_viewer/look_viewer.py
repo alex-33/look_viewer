@@ -1,6 +1,9 @@
 import os, os.path
 from flask import Flask, render_template, request, send_from_directory
-from util import ImageStorage, configure_flask_logger, iterate_files
+from util import (
+    ImageStorage, configure_flask_logger,
+    iterate_files, parse_look_collection_from_log,
+)
 
 __version__ = "0.1"
 IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), "static/img")
@@ -46,11 +49,7 @@ def look_generator(site, top, bottom):
 
 @app.route("/look")
 def look_viewer():
-    look_collection = [
-        ("top", "bottom"),
-        ("x", "y"),
-        ("lamoda/shoes/men_shoes_PNG7493.png", "lamoda/shoes/men_shoes_PNG7496.png"),
-    ]
+    look_collection = parse_look_collection_from_log("look_viewer.log")
     return render_template("look_viewer.html", look_collection=look_collection)
 
 
