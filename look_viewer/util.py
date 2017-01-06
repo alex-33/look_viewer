@@ -1,5 +1,7 @@
+import logging
 import os, os.path
 from random import shuffle
+
 
 def iterate_subfolders(folder):
     for item in os.listdir(folder):
@@ -50,3 +52,14 @@ class ImageStorage(object):
 
     def _get_folder_for_type(self, type_name):
         return os.path.join(self.location, type_name)
+
+
+def configure_flask_logger(flask_logger):
+    formatter = logging.Formatter(fmt="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+    file_handler = logging.FileHandler("look_viewer.log")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    flask_logger.addHandler(file_handler)
+    flask_logger.setLevel(logging.INFO)

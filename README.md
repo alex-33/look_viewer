@@ -10,6 +10,8 @@ python setup.py install
 
 # create web service
 FLASK_APP=look_viewer/look_viewer.py python -m flask run --host=0.0.0.0
+# or with configured app logger
+PYTHONPATH=look_viewer python -m look_viewer.look_viewer
 
 # TODO:
 look_viewer --host=0.0.0.0
