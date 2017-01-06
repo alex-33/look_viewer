@@ -33,7 +33,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <div class="row">
-      <div class="col-xs-6 col-md-6">
+      <div class="col-xs-3 col-md-3">
 
         <div class="row">
 
@@ -52,7 +52,7 @@
         </div>
 
       </div>
-      <div class="col-xs-6 col-md-6">
+      <div class="col-xs-9 col-md-9">
 
         <form method="POST">
             <div class="form-group">
@@ -73,7 +73,7 @@
 
     <div class="row">
     {% for image in top_images %}
-      <div class="col-xs-6 col-md-3">
+      <div class="col-xs-6 col-md-2">
 	<a href="#" class="thumbnail">
             <img src="/static/img/{{ image }}" onclick="getElementById('top').value = this.src; getElementById('top_img').src = this.src">
 	</a>
@@ -85,7 +85,7 @@
 
     <div class="row">
     {% for image in bottom_images %}
-      <div class="col-xs-6 col-md-3">
+      <div class="col-xs-6 col-md-2">
 	<a href="#" class="thumbnail">
             <img src="/static/img/{{ image }}" onclick="getElementById('bottom').value = this.src; getElementById('bottom_img').src = this.src">
 	</a>
