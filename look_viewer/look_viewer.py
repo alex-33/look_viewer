@@ -1,8 +1,9 @@
 import os, os.path
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, redirect
 from util import (
     ImageStorage, configure_flask_logger,
-    iterate_files, parse_look_collection_from_log,
+    iterate_files, iterate_subfolders,
+    parse_look_collection_from_log,
 )
 
 __version__ = "0.1"
@@ -13,9 +14,8 @@ app = Flask(__name__, static_url_path="/static")
 
 @app.route("/")
 def main():
-    lamoda_storage = ImageStorage.build_for(site_name="lamoda", static_image_path=IMAGE_FOLDER)
-    shoe_images = lamoda_storage.get_random_image_paths("shoes", limit=IMAGE_PER_TYPE)
-    return render_template("index.html", image_collection=shoe_images)
+    site_name = iterate_subfolders(IMAGE_FOLDER).next()
+    return redirect("/{}".format(site_name))
 
 
 @app.route("/<site>")
