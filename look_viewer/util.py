@@ -4,7 +4,7 @@ from collections import namedtuple
 from random import shuffle
 
 logger = logging.getLogger(__name__)
-LookItem = namedtuple("LookItem", ["top", "middle", "bottom"])
+LookItem = namedtuple("LookItem", ["username", "top", "middle", "bottom"])
 
 
 def iterate_subfolders(folder):
@@ -70,12 +70,38 @@ def configure_flask_logger(flask_logger):
     flask_logger.setLevel(logging.INFO)
 
 
+class LookLogParser(object):
+    look_pattern = "user provided look:"
+
+    def contain_look(self, log_line):
+        if self.look_pattern not in log_line:
+            return False
+
+        look_items = log_line.split(self.look_pattern)[-1].split("+")
+        if len(look_items) != 3:
+            return False
+
+        return True
+
+    def parse(self, log_line):
+        user_info, look_info = log_line.split(self.look_pattern)
+        username = self._parse_username(user_info)
+        top, middle, bottom = look_info.split("+")
+        return LookItem(
+            username=username, top=top.strip(),
+            middle=middle.strip(), bottom=bottom.strip()
+        )
+
+    def _parse_username(self, user_info):
+        username = user_info.strip().split()[-1]
+        username = username.replace(":", "")
+        return username
+
+
 def parse_look_collection_from_log(log_file_path):
+    look_log_parser = LookLogParser()
     with open(log_file_path) as fin:
         for line in fin:
-            if "user provided look" in line:
-                look = line.split("user provided look:")[-1]
-                look_items = look.split(" + ")
-                if len(look_items) == 3:
-                    top, middle, bottom = look_items
-                    yield LookItem(top=top.strip(), middle=middle.strip(), bottom=bottom.strip())
+            if look_log_parser.contain_look(line):
+                look = look_log_parser.parse(line)
+                yield look

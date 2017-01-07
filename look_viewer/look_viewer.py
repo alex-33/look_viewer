@@ -33,11 +33,13 @@ def show_image_types_for_site(site):
 
 @app.route("/<site>/<top>/<middle>/<bottom>", methods=["GET", "POST"])
 def look_generator(site, top, middle, bottom):
+    username = None
     if request.method == "POST":
+        username = request.form["username"]
         look_top = request.form["top"]
         look_middle = request.form["middle"]
         look_bottom = request.form["bottom"]
-        app.logger.info("user provided look: {} + {} + {}".format(look_top, look_middle, look_bottom))
+        app.logger.info("{}: user provided look: {} + {} + {}".format(username, look_top, look_middle, look_bottom))
         
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     top_images = site_storage.get_random_image_paths(top, limit=IMAGE_PER_TYPE)
@@ -45,6 +47,7 @@ def look_generator(site, top, middle, bottom):
     bottom_images = site_storage.get_random_image_paths(bottom, limit=IMAGE_PER_TYPE)
     return render_template(
         "look.html",
+        username=username or "default_user",
         top_images=top_images, top_name=top,
         middle_images=middle_images, middle_name=middle,
         bottom_images=bottom_images, bottom_name=bottom,

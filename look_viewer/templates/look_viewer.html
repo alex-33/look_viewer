@@ -13,7 +13,7 @@
     {% for look in look_collection %}
       <div class="col-xs-3 col-md-3">
 
-        <h2> Look # {{ loop.index }}</h2>
+          <h2> Look # {{ loop.index }} ({{ look.username }})</h2>
         <div class="row">
               <div class="col-xs-12 col-md-12">
                   <img src="{{ look.top }}">
