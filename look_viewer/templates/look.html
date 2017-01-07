@@ -29,10 +29,11 @@
                 <label>Username:<label> <br>
                 <input type="text" class="form-control" name="username" value="{{ username }}" size="100%">
             </div>
-            {% for (position, category) in [("top", top_name), ("middle", middle_name), ("bottom", bottom_name)] %}
+            {% for (position, category, category_images) in [("top", top_name, top_images), ("middle", middle_name, middle_images), ("bottom", bottom_name, bottom_images)] %}
             <div class="form-group">
                 <label>{{ position | upper }}: {{ category }}<label> <br>
                 <input type="text" class="form-control" name="{{ position }}" id="{{ position }}" size="100%">
+                <input type="hidden" value="{{ category_images }}" name="{{ position }}_images">
             </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary" action="save_look">I like it!</button>

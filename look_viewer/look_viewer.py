@@ -39,7 +39,17 @@ def look_generator(site, top, middle, bottom):
         look_top = request.form["top"]
         look_middle = request.form["middle"]
         look_bottom = request.form["bottom"]
-        app.logger.info("{}: user provided look: {} + {} + {}".format(username, look_top, look_middle, look_bottom))
+        app.logger.info("{}: user provided look: {} + {} + {}".format(
+            username, look_top, look_middle, look_bottom
+        ))
+
+        top_images = request.form["top_images"]
+        middle_images = request.form["middle_images"]
+        bottom_images = request.form["bottom_images"]
+        app.logger.info("user '{}' chose look ('{}','{}','{}') when shown: ({}; {}; {})".format(
+            username, look_top, look_middle, look_bottom,
+            top_images, middle_images, bottom_images,
+        ))
         
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     top_images = site_storage.get_random_image_paths(top, limit=IMAGE_PER_TYPE)
