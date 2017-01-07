@@ -29,7 +29,7 @@ class ImageStorage(object):
     def get_types(self):
         logger.debug("location: === {}".format(self.location))
 
-        types = list(iterate_subfolders(self.location))
+        types = sorted(list(iterate_subfolders(self.location)))
         return types
 
 
