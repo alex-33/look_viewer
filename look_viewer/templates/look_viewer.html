@@ -15,18 +15,17 @@
 
         <h2> Look # {{ loop.index }}</h2>
         <div class="row">
+              <div class="col-xs-12 col-md-12">
+                  <img src="{{ look.top }}">
+              </div>
 
-          <div class="col-xs-12 col-md-12">
-            <a href="#" class="thumbnail">
-                <img src="{{ look[0] }}">
-            </a>
-          </div>
+              <div class="col-xs-12 col-md-12">
+                  <img src="{{ look.middle }}">
+              </div>
 
-          <div class="col-xs-12 col-md-12">
-            <a href="#" class="thumbnail">
-                <img src="{{ look[1] }}">
-            </a>
-          </div>
+              <div class="col-xs-12 col-md-12">
+                  <img src="{{ look.bottom }}">
+              </div>
         </div>
 
       </div>

@@ -1,8 +1,10 @@
 import logging
 import os, os.path
+from collections import namedtuple
 from random import shuffle
 
 logger = logging.getLogger(__name__)
+LookItem = namedtuple("LookItem", ["top", "middle", "bottom"])
 
 
 def iterate_subfolders(folder):
@@ -74,8 +76,6 @@ def parse_look_collection_from_log(log_file_path):
             if "user provided look" in line:
                 look = line.split("user provided look:")[-1]
                 look_items = look.split(" + ")
-                if len(look_items) == 2:
-                    top, bottom = look_items
-                    top = top.strip()
-                    bottom = bottom.strip()
-                    yield top, bottom
+                if len(look_items) == 3:
+                    top, middle, bottom = look_items
+                    yield LookItem(top=top.strip(), middle=middle.strip(), bottom=bottom.strip())
