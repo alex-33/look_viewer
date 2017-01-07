@@ -20,10 +20,11 @@ def main():
 
 @app.route("/<site>")
 def show_image_types_for_site(site):
-    print "=== DEBUG: site: {}".format(site)
     if site == "favicon.ico":
         # what is the hell?
         return ""
+
+    app.logger.debug("request site page: {}".format(site))
 
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     image_types = site_storage.get_types()

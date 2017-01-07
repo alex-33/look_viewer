@@ -2,6 +2,8 @@ import logging
 import os, os.path
 from random import shuffle
 
+logger = logging.getLogger(__name__)
+
 
 def iterate_subfolders(folder):
     for item in os.listdir(folder):
@@ -23,7 +25,7 @@ class ImageStorage(object):
         self.location = location
 
     def get_types(self):
-        print "=== DEBUG location: === {}".format(self.location)
+        logger.debug("location: === {}".format(self.location))
 
         types = list(iterate_subfolders(self.location))
         return types
