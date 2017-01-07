@@ -12,10 +12,10 @@
     {% for position in ["top", "middle", "bottom"] %}
 
     {{ position | upper }}:
-    <select id="{{ position }}_select">
+    <select id="{{ position }}_select" onchange="getElementById('look_generator').href = getElementById('look_generator').href.replace('{{ position | upper }}', this.value); getElementById('{{ position }}_select').disabled = true;">
         <option value="--">-- please choose option --</option>
         {% for image_type in image_types %}
-        <option value="{{ image_type }}" onclick="getElementById('look_generator').href = getElementById('look_generator').href.replace('{{ position | upper }}', this.value); getElementById('{{ position }}_select').disabled = true;">{{ image_type }}</option>
+        <option value="{{ image_type }}">{{ image_type }}</option>
         {% endfor %}
     </select>
 
