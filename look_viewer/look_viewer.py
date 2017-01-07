@@ -28,7 +28,7 @@ def show_image_types_for_site(site):
 
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     image_types = site_storage.get_types()
-    return render_template("site.html", image_types=image_types)
+    return render_template("site.html", site=site, image_types=image_types)
 
 
 @app.route("/<site>/<top>/<middle>/<bottom>", methods=["GET", "POST"])

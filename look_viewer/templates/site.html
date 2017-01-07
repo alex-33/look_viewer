@@ -6,13 +6,24 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <h1>There are following image types available on this site:</h1>
+    <h4>There are following image types available on this site: top / middle / bottom </h4>
 
-    <ul>
+    generate a link for
+    {% for position in ["top", "middle", "bottom"] %}
+
+    {{ position | upper }}:
+    <select id="{{ position }}_select">
+        <option value="--">-- please choose option --</option>
         {% for image_type in image_types %}
-        <li>{{ image_type }}</li>
+        <option value="{{ image_type }}" onclick="getElementById('look_generator').href = getElementById('look_generator').href.replace('{{ position | upper }}', this.value); getElementById('{{ position }}_select').disabled = true;">{{ image_type }}</option>
         {% endfor %}
-    </ul>
+    </select>
+
+    {% endfor %}
+
+    <br>
+
+    Generate looks: <a href="/{{ site }}/TOP/MIDDLE/BOTTOM" id="look_generator">link</a>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!--
