@@ -10,62 +10,44 @@
       <div class="col-xs-3 col-md-3">
 
         <div class="row">
+        {% for position in ["top", "middle", "bottom"] %}
 
           <div class="col-xs-12 col-md-12">
-            <a href="#" class="thumbnail">
-                <img src="/favicon.ico" id="top_img">
-            </a>
+            <img src="/favicon.ico" id="{{ position }}_img">
           </div>
 
-          <div class="col-xs-12 col-md-12">
-            <a href="#" class="thumbnail">
-                <img src="/favicon.ico" id="bottom_img">
-            </a>
-          </div>
-
-        </div>
+        {% endfor %}
+         </div>
 
       </div>
       <div class="col-xs-9 col-md-9">
 
         <form method="POST">
+            {% for (position, category) in [("top", top_name), ("middle", middle_name), ("bottom", bottom_name)] %}
             <div class="form-group">
-                <label>TOP: {{ top_name }}<label> <br>
-                <input type="text" class="form-control" name="top" id="top" size="100%">
+                <label>{{ position | upper }}: {{ category }}<label> <br>
+                <input type="text" class="form-control" name="{{ position }}" id="{{ position }}" size="100%">
             </div>
-            <div class="form-group">
-                <label>BOTTOM: {{ bottom_name }}<label> <br>
-                <input type="text" class="form-control" name="bottom" id="bottom" size="100%">
-            </div>
+            {% endfor %}
             <button type="submit" class="btn btn-primary" action="save_look">I like it!</button>
         </form>
 
       </div>
     </div>
 
-    <h1>TOP: {{ top_name }}</h1>
-
+    {% for (position, category, category_images) in [("top", top_name, top_images), ("middle", middle_name, middle_images), ("bottom", bottom_name, bottom_images)] %}
+    <h1>{{ position | upper }}: {{ category }}</h1>
     <div class="row">
-    {% for image in top_images %}
-      <div class="col-xs-6 col-md-2">
-	<a href="#" class="thumbnail">
-            <img src="/static/img/{{ image }}" onclick="getElementById('top').value = this.src; getElementById('top_img').src = this.src">
-	</a>
-      </div>
-    {% endfor %}
+        {% for image in category_images %}
+          <div class="col-xs-6 col-md-2">
+            <a href="#" class="thumbnail">
+                <img src="/static/img/{{ image }}" onclick="getElementById('{{ position }}').value = this.src; getElementById('{{ position }}_img').src = this.src">
+            </a>
+          </div>
+        {% endfor %}
     </div>
 
-    <h1>BOTTOM: {{ bottom_name }}</h1>
-
-    <div class="row">
-    {% for image in bottom_images %}
-      <div class="col-xs-6 col-md-2">
-	<a href="#" class="thumbnail">
-            <img src="/static/img/{{ image }}" onclick="getElementById('bottom').value = this.src; getElementById('bottom_img').src = this.src">
-	</a>
-      </div>
     {% endfor %}
-    </div>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!--

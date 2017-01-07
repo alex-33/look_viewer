@@ -31,20 +31,23 @@ def show_image_types_for_site(site):
     return render_template("site.html", image_types=image_types)
 
 
-@app.route("/<site>/<top>/<bottom>", methods=["GET", "POST"])
-def look_generator(site, top, bottom):
+@app.route("/<site>/<top>/<middle>/<bottom>", methods=["GET", "POST"])
+def look_generator(site, top, middle, bottom):
     if request.method == "POST":
         look_top = request.form["top"]
+        look_middle = request.form["middle"]
         look_bottom = request.form["bottom"]
-        app.logger.info("user provided look: {} + {}".format(look_top, look_bottom))
+        app.logger.info("user provided look: {} + {}".format(look_top, look_middle, look_bottom))
         
     site_storage = ImageStorage.build_for(site, static_image_path=IMAGE_FOLDER)
     top_images = site_storage.get_random_image_paths(top, limit=IMAGE_PER_TYPE)
+    middle_images = site_storage.get_random_image_paths(middle, limit=IMAGE_PER_TYPE)
     bottom_images = site_storage.get_random_image_paths(bottom, limit=IMAGE_PER_TYPE)
     return render_template(
         "look.html",
-        top_name=top, bottom_name=bottom,
-        top_images=top_images, bottom_images=bottom_images
+        top_images=top_images, top_name=top,
+        middle_images=middle_images, middle_name=middle,
+        bottom_images=bottom_images, bottom_name=bottom,
     )
 
 
